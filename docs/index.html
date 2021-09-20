@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>MNIST Test</title>
+    <style type="text/css">
+        .button {
+            font-size: 20px;
+            padding: 10px 30px;
+        }
+
+        .result {
+            font-size: 30px;
+        }
+
+        .header {
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <H1> MNIST Check </H1>
+    <div><button type="button" onclick="allClear()" class="button">Clear</button>
+    </div>
+    <div id="result" class="result">Your figure is ... </div>
+    <table>
+        <tr class="header">
+            <td>Please draw here</td>
+            <td>Input Image</td>
+        </tr>
+        <tr>
+            <td><canvas id='canvas' width=280 height=280 style="background-color:black;"></canvas></td>
+            <td><canvas id='canvas2' width=280 height=280 style="background-color:black;"></canvas></td>
+        </tr>
+    </table>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
+    <script type="text/javascript" src="draw.js"></script>
+    <script>
+        var model;
+        window.onload = async function () {
+            drawSetup($('canvas'), $('canvas2'));
+            model = await tf.loadLayersModel('./model/model.json');
+        }
+
+        function allClear() {
+            $('result').innerHTML = "Your figure is ... ";
+            canvasClear($('canvas'));
+            canvasClear($('canvas2'));
+        }
+
+        function $(id) {
+            return document.getElementById(id);
+        }
+    </script>
+
+</body>
+
+</html>
